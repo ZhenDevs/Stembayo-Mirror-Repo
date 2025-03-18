@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repository Mirror | Karyasija</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="icon" href="logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="logo.png">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        code, pre {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(to right, #15803d, #22c55e);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .terminal-effect::before {
+            content: "$ ";
+            color: #4ade80;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #16a34a;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #15803d;
+        }
+        
+        .bg-pattern {
+            background-color: #f9fafb;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%2322c55e' fill-opacity='0.05'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 20.83l2.83-2.83 1.41 1.41L1.41 22.24H0v-1.41zM0 3.07l2.83-2.83 1.41 1.41L1.41 4.48H0V3.07zM17.76 40l2.83-2.83 1.41 1.41L19.17 40h-1.41zM17.76 22.24l2.83-2.83 1.41 1.41L19.17 22.24h-1.41zM17.76 4.48l2.83-2.83 1.41 1.41L19.17 4.48h-1.41zM35.52 40l2.83-2.83 1.41 1.41L37.93 40h-2.41zM35.52 22.24l2.83-2.83 1.41 1.41L37.93 22.24h-2.41zM35.52 4.48l2.83-2.83 1.41 1.41L37.93 4.48h-2.41zM1.41 19.17l2.83 2.83-1.41 1.41L0 20.83v-1.66h1.41zM19.17 37.93l2.83 2.83-1.41 1.41-2.83-2.83v-1.41h1.41zM19.17 20.17l2.83 2.83-1.41 1.41-2.83-2.83v-1.41h1.41zM19.17 2.41l2.83 2.83-1.41 1.41-2.83-2.83V2.41h1.41zM36.93 37.93l2.83 2.83-1.41 1.41-2.83-2.83v-1.41h1.41zM36.93 20.17l2.83 2.83-1.41 1.41-2.83-2.83v-1.41h1.41zM36.93 2.41l2.83 2.83-1.41 1.41-2.83-2.83V2.41h1.41zM1.41 36.59L4.24 39.4l-1.41 1.41L0 37.98v-1.39h1.41zM1.41 18.83L4.24 21.64l-1.41 1.41L0 20.22v-1.39h1.41zM1.41 1.07L4.24 3.88l-1.41 1.41L0 2.46V1.07h1.41z'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Progress Bar -->
+    <div id="progress-bar" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-brand-500 to-brand-400 z-50" style="width: 0%"></div>
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md sticky top-0 z-40 border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <div class="bg-gradient-to-br from-brand-600 to-brand-500 rounded-full p-1.5 mr-3 shadow-md">
+                        <img src="logo.png" alt="Karyasija Logo" class="h-7 w-7 rounded-full">
+                    </div>
+                    <span class="text-lg font-semibold">Repository <span class="text-brand-600 font-bold">Mirror</span></span>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#home" class="text-gray-600 hover:text-brand-600 font-medium relative group">
+                        Home
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#repositories" class="text-gray-600 hover:text-brand-600 font-medium relative group">
+                        Repositories
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#setup" class="text-gray-600 hover:text-brand-600 font-medium relative group">
+                        Setup
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#faq" class="text-gray-600 hover:text-brand-600 font-medium relative group">
+                        FAQ
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                </div>
+                <button class="md:hidden text-gray-600 focus:outline-none hover:text-brand-600 transition" id="mobile-menu-button">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-white px-4 pb-3 pt-1 border-t border-gray-100" id="mobile-menu">
+            <a href="#home" class="block py-2 text-gray-600 hover:text-brand-600 transition">Home</a>
+            <a href="#repositories" class="block py-2 text-gray-600 hover:text-brand-600 transition">Repositories</a>
+            <a href="#setup" class="block py-2 text-gray-600 hover:text-brand-600 transition">Setup</a>
+            <a href="#faq" class="block py-2 text-gray-600 hover:text-brand-600 transition">FAQ</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="relative bg-gradient-to-br from-brand-900 via-brand-800 to-brand-600 text-white py-20 overflow-hidden">
+        <!-- Background pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+                <defs>
+                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 0 10 L 40 10 M 10 0 L 10 40" stroke="white" stroke-width="0.5" fill="none" />
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid)" />
+            </svg>
+        </div>
+        
+        <!-- Floating circles -->
+        <div class="absolute left-10 top-20 h-16 w-16 rounded-full bg-white opacity-10 animate-bounce-slow"></div>
+        <div class="absolute right-20 bottom-20 h-24 w-24 rounded-full bg-white opacity-10 animate-pulse-slow"></div>
+        <div class="absolute right-1/4 top-1/3 h-12 w-12 rounded-full bg-white opacity-10 animate-spin-slow"></div>
+
+        <div class="max-w-5xl mx-auto px-4 relative z-10">
+            <div class="max-w-3xl mx-auto text-center">
+                <div class="inline-block px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm mb-5">
+                    <span class="text-white/90 text-sm font-medium">Linux Package Mirror</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-bold mb-5 leading-tight">
+                    Stembayo <span class="text-brand-300">Repository Mirror</span>
+                </h1>
+                <p class="text-lg mb-10 text-white/90 max-w-2xl mx-auto">
+                    Mirror repository Linux yang tersedia untuk jaringan lokal dan publik. Dibangun untuk mempercepat proses deployment dan update sistem.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#setup" class="bg-white text-brand-700 px-7 py-3 rounded-lg font-medium shadow-md hover:bg-gray-50 hover:shadow-lg transition transform hover:-translate-y-1">
+                        <i class="fas fa-book mr-2"></i> Setup Guide
+                    </a>
+                    <a href="#repositories" class="bg-brand-700 text-white px-7 py-3 rounded-lg font-medium border border-white/20 shadow-md hover:bg-brand-600 hover:shadow-lg transition transform hover:-translate-y-1">
+                        <i class="fas fa-server mr-2"></i> Lihat Repository
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features -->
+    <section class="py-16 bg-white">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="text-center mb-12">
+            <div class="mt-16 text-center">
+                <div class="inline-block py-2 px-6 rounded-xl bg-brand-50 text-brand-700 font-medium mb-3">
+                    <i class="fas fa-globe mr-2"></i>
+                    Public & Local Access
+                </div>
+                <h3 class="text-2xl font-bold mb-3">Tersedia untuk jaringan umum dan internal</h3>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Dengan menggunakan mirror kami, Anda menghemat bandwidth internet dan mempercepat proses instalasi package di infrastruktur Anda
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Repositories Section -->
+    <section id="repositories" class="py-16 bg-pattern">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="inline-block px-3 py-1 rounded-full bg-brand-100 text-brand-700 font-medium text-sm mb-3">
+                    <i class="fas fa-cubes mr-2"></i> Repositories
+                </span>
+                <h2 class="text-3xl font-bold mb-4 gradient-text">Repository yang Tersedia</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Akses mirror repository untuk berbagai distribusi Linux berikut
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Ubuntu Repository Card -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 card-hover">
+                    <div class="px-6 py-5 bg-gradient-to-r from-orange-600 to-orange-500 text-white">
+                        <div class="flex items-center">
+                            <i class="fab fa-ubuntu mr-3 text-3xl"></i>
+                            <h3 class="text-xl font-bold">Ubuntu Noble (24.04 LTS)</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="mb-5">
+                            <div class="font-medium text-gray-700 mb-2">URL Repository</div>
+                            <div class="flex items-center space-x-2">
+                                <code class="bg-gray-100 px-4 py-2 rounded-lg text-gray-700 font-mono text-sm w-full">http://repo.stembayo.sch.id/ubuntu/</code>
+                                <button class="text-brand-600 hover:text-brand-800 bg-brand-50 p-2 rounded-full hover:bg-brand-100 transition" id="copy-ubuntu-url-btn" title="Copy URL">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <div class="font-medium text-gray-700 mb-2">Arsitektur</div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1 rounded-full flex items-center">
+                                    <i class="fas fa-microchip mr-1 text-brand-500"></i> amd64
+                                </span>
+                                <span class="bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1 rounded-full flex items-center">
+                                    <i class="fas fa-microchip mr-1 text-brand-500"></i> i386
+                                </span>
+                                <span class="bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1 rounded-full flex items-center">
+                                    <i class="fas fa-microchip mr-1 text-brand-500"></i> arm64
+                                </span>
+                                <span class="bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1 rounded-full flex items-center">
+                                    <i class="fas fa-microchip mr-1 text-brand-500"></i> armhf
+                                </span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center bg-green-50 px-3 py-1 rounded-full">
+                                <span class="h-2.5 w-2.5 bg-green-500 rounded-full mr-2 animate-pulse"></span>
+                                <span class="text-green-700 text-sm font-medium">Online</span>
+                            </div>
+                            <a href="#ubuntu-setup" class="text-brand-600 hover:text-brand-700 font-medium inline-flex items-center group">
+                                Setup Guide <i class="fas fa-arrow-right ml-1 transform group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Debian Repository Card -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 card-hover">
+                    <div class="px-6 py-5 bg-gradient-to-r from-red-600 to-red-500 text-white">
+                        <div class="flex items-center">
+                            <i class="fab fa-debian mr-3 text-3xl"></i>
+                            <h3 class="text-xl font-bold">Debian 12 (Bookworm)</h3>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="mb-5">
+                            <div class="font-medium text-gray-700 mb-2">URL Repository</div>
+                            <div class="flex items-center space-x-2">
+                                <code class="bg-gray-100 px-4 py-2 rounded-lg text-gray-700 font-mono text-sm w-full">http://repo.stembayo.sch.id/debian/</code>
+                                <button class="text-brand-600 hover:text-brand-800 bg-brand-50 p-2 rounded-full hover:bg-brand-100 transition" id="copy-debian-url-btn" title="Copy URL">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <div class="font-medium text-gray-700 mb-2">Arsitektur</div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1 rounded-full flex items-center">
+                                    <i class="fas fa-microchip mr-1 text-brand-500"></i> amd64
+                                </span>
+                                <span class="bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1 rounded-full flex items-center">
+                                    <i class="fas fa-microchip mr-1 text-brand-500"></i> i386
+                                </span>
+                                <span class="bg-gray-100 text-gray-800 text-xs font-medium px-3 py-1 rounded-full flex items-center">
+                                    <i class="fas fa-microchip mr-1 text-brand-500"></i> arm64
+                                </span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center bg-green-50 px-3 py-1 rounded-full">
+                                <span class="h-2.5 w-2.5 bg-green-500 rounded-full mr-2 animate-pulse"></span>
+                                <span class="text-green-700 text-sm font-medium">Online</span>
+                            </div>
+                            <a href="#debian-setup" class="text-brand-600 hover:text-brand-700 font-medium inline-flex items-center group">
+                                Setup Guide <i class="fas fa-arrow-right ml-1 transform group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Setup Guide -->
+    <section id="setup" class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="inline-block px-3 py-1 rounded-full bg-brand-100 text-brand-700 font-medium text-sm mb-3">
+                    <i class="fas fa-book mr-2"></i> Panduan
+                </span>
+                <h2 class="text-3xl font-bold mb-4 gradient-text">Cara Menggunakan Repository</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Ikuti langkah-langkah berikut untuk mengonfigurasi sistem Linux Anda
+                </p>
+            </div>
+            
+            <!-- Ubuntu Setup -->
+            <div id="ubuntu-setup" class="mb-12">
+                <div class="bg-gray-50 rounded-xl shadow-lg overflow-hidden border border-gray-100">
+                    <div class="px-6 py-4 bg-gradient-to-r from-orange-600 to-orange-500 text-white">
+                        <h3 class="text-lg font-semibold flex items-center">
+                            <i class="fab fa-ubuntu mr-2"></i>
+                            Setup Ubuntu 24.04 LTS (Noble)
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-6">
+                            <!-- Step 1 -->
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <div class="flex items-center justify-center h-10 w-10 rounded-full bg-brand-100 text-brand-600 font-semibold shadow-md">
+                                        1
+                                    </div>
+                                </div>
+                                <div class="ml-5">
+                                    <h4 class="text-lg font-medium text-gray-900 mb-2">Backup sources.list</h4>
+                                    <div class="bg-gray-900 text-white p-4 rounded-lg font-mono text-sm terminal-effect">
+                                        sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 2 -->
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <div class="flex items-center justify-center h-10 w-10 rounded-full bg-brand-100 text-brand-600 font-semibold shadow-md">
+                                        2
+                                    </div>
+                                </div>
+                                <div class="ml-5">
+                                    <h4 class="text-lg font-medium text-gray-900 mb-2">Ganti isi file sources.list</h4>
+                                    <div class="bg-gray-900 text-white p-4 rounded-lg font-mono text-sm relative overflow-hidden">
+                                        <div class="flex items-center mb-2 text-gray-500 text-xs">
+                                            <div class="flex-1 flex items-center">
+                                                <i class="fas fa-file-alt mr-2"></i> /etc/apt/sources.list
+                                            </div>
+                                            <div>Ubuntu 24.04</div>
+                                        </div>
+                                        <pre class="whitespace-pre-wrap text-gray-300">deb http://repo.stembayo.sch.id/ubuntu/ noble main restricted universe multiverse
+deb http://repo.stembayo.sch.id/ubuntu/ noble-updates main restricted universe multiverse
+deb http://repo.stembayo.sch.id/ubuntu/ noble-security main restricted universe multiverse</pre>
+                                        <button class="absolute top-2 right-2 text-white/60 hover:text-white transition" id="copy-ubuntu-config-btn" title="Copy configuration">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                    <div class="mt-3 bg-brand-50 border-l-4 border-brand-500 p-3 rounded-r-lg">
+                                        <p class="text-sm text-brand-800">
+                                            <i class="fas fa-lightbulb text-brand-600 mr-2"></i>
+                                            Konfigurasi ini mengarahkan sistem Anda untuk mengunduh package langsung dari mirror lokal.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 3 -->
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <div class="flex items-center justify-center h-10 w-10 rounded-full bg-brand-100 text-brand-600 font-semibold shadow-md">
+                                        3
+                                    </div>
+                                </div>
+                                <div class="ml-5">
+                                    <h4 class="text-lg font-medium text-gray-900 mb-2">Update informasi paket</h4>
+                                    <div class="bg-gray-900 text-white p-4 rounded-lg font-mono text-sm terminal-effect">
+                                        sudo apt update
+                                    </div>
+                                    <div class="mt-3 flex items-center bg-green-50 px-3 py-2 rounded-lg">
+                                        <div class="text-green-700 flex items-center">
+                                            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                                            <span class="font-medium">Repository berhasil dikonfigurasi</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Debian Setup -->
+            <div id="debian-setup">
+                <div class="bg-gray-50 rounded-xl shadow-lg overflow-hidden border border-gray-100">
+                    <div class="px-6 py-4 bg-gradient-to-r from-red-600 to-red-500 text-white">
+                        <h3 class="text-lg font-semibold flex items-center">
+                            <i class="fab fa-debian mr-2"></i>
+                            Setup Debian 12 (Bookworm)
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-6">
+                            <!-- Step 1 -->
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <div class="flex items-center justify-center h-10 w-10 rounded-full bg-brand-100 text-brand-600 font-semibold shadow-md">
+                                        1
+                                    </div>
+                                </div>
+                                <div class="ml-5">
+                                    <h4 class="text-lg font-medium text-gray-900 mb-2">Backup sources.list</h4>
+                                    <div class="bg-gray-900 text-white p-4 rounded-lg font-mono text-sm terminal-effect">
+                                        sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 2 -->
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <div class="flex items-center justify-center h-10 w-10 rounded-full bg-brand-100 text-brand-600 font-semibold shadow-md">
+                                        2
+                                    </div>
+                                </div>
+                                <div class="ml-5">
+                                    <h4 class="text-lg font-medium text-gray-900 mb-2">Ganti isi file sources.list</h4>
+                                    <div class="bg-gray-900 text-white p-4 rounded-lg font-mono text-sm relative overflow-hidden">
+                                        <div class="flex items-center mb-2 text-gray-500 text-xs">
+                                            <div class="flex-1 flex items-center">
+                                                <i class="fas fa-file-alt mr-2"></i> /etc/apt/sources.list
+                                            </div>
+                                            <div>Debian 12</div>
+                                        </div>
+                                        <pre class="whitespace-pre-wrap text-gray-300">deb http://repo.stembayo.sch.id/debian/ bookworm main contrib non-free non-free-firmware
+deb http://repo.stembayo.sch.id/debian/ bookworm-updates main contrib non-free non-free-firmware
+deb http://repo.stembayo.sch.id/debian-security/ bookworm-security main contrib non-free non-free-firmware</pre>
+                                        <button class="absolute top-2 right-2 text-white/60 hover:text-white transition" id="copy-debian-config-btn" title="Copy configuration">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                    <div class="mt-3 bg-brand-50 border-l-4 border-brand-500 p-3 rounded-r-lg">
+                                        <p class="text-sm text-brand-800">
+                                            <i class="fas fa-lightbulb text-brand-600 mr-2"></i>
+                                            Konfigurasi ini mencakup repository utama, updates, dan security Debian.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 3 -->
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <div class="flex items-center justify-center h-10 w-10 rounded-full bg-brand-100 text-brand-600 font-semibold shadow-md">
+                                        3
+                                    </div>
+                                </div>
+                                <div class="ml-5">
+                                    <h4 class="text-lg font-medium text-gray-900 mb-2">Update informasi paket</h4>
+                                    <div class="bg-gray-900 text-white p-4 rounded-lg font-mono text-sm terminal-effect">
+                                        sudo apt update
+                                    </div>
+                                    <div class="mt-3 flex items-center bg-green-50 px-3 py-2 rounded-lg">
+                                        <div class="text-green-700 flex items-center">
+                                            <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                                            <span class="font-medium">Repository berhasil dikonfigurasi</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-16 bg-white">
+        <div class="max-w-3xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="inline-block px-3 py-1 rounded-full bg-brand-100 text-brand-700 font-medium text-sm mb-3">
+                    <i class="fas fa-question-circle mr-2"></i> FAQ
+                </span>
+                <h2 class="text-3xl font-bold mb-4 gradient-text">Pertanyaan Umum</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Pertanyaan yang sering diajukan tentang repository mirror
+                </p>
+            </div>
+            
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition-all duration-300">
+                    <button class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none faq-button">
+                        <span class="text-lg text-gray-800 flex items-center">
+                            <i class="fas fa-question-circle text-brand-500 mr-3"></i>
+                            Apa itu repository mirror?
+                        </span>
+                        <div class="h-8 w-8 rounded-full bg-brand-50 flex items-center justify-center">
+                            <i class="fas fa-chevron-down text-brand-500 transition-transform duration-300"></i>
+                        </div>
+                    </button>
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 hidden faq-answer">
+                        <p class="text-gray-600 leading-relaxed">
+                            Repository mirror adalah salinan lokal dari repository paket Ubuntu atau Debian yang memungkinkan Anda mengunduh dan memperbarui paket dengan lebih cepat dari server lokal tanpa perlu menggunakan bandwidth internet. Mirror menyimpan salinan lengkap dari repository resmi dan diperbarui secara berkala.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition-all duration-300">
+                    <button class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none faq-button">
+                        <span class="text-lg text-gray-800 flex items-center">
+                            <i class="fas fa-question-circle text-brand-500 mr-3"></i>
+                            Seberapa sering mirror diperbarui?
+                        </span>
+                        <div class="h-8 w-8 rounded-full bg-brand-50 flex items-center justify-center">
+                            <i class="fas fa-chevron-down text-brand-500 transition-transform duration-300"></i>
+                        </div>
+                    </button>
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 hidden faq-answer">
+                        <p class="text-gray-600 leading-relaxed">
+                            Mirror repository kami disinkronisasi dengan repositori resmi setiap 10 jam untuk memastikan Anda memiliki akses ke pembaruan keamanan dan paket terbaru. Ini menjamin bahwa sistem Anda akan selalu mendapatkan patch keamanan penting tanpa penundaan yang signifikan.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 transition-all duration-300">
+                    <button class="w-full px-6 py-4 text-left font-medium flex justify-between items-center focus:outline-none faq-button">
+                        <span class="text-lg text-gray-800 flex items-center">
+                            <i class="fas fa-question-circle text-brand-500 mr-3"></i>
+                            Bagaimana cara kembali ke repository default?
+                        </span>
+                        <div class="h-8 w-8 rounded-full bg-brand-50 flex items-center justify-center">
+                            <i class="fas fa-chevron-down text-brand-500 transition-transform duration-300"></i>
+                        </div>
+                    </button>
+                    <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 hidden faq-answer">
+                        <p class="text-gray-600 leading-relaxed mb-3">
+                            Untuk kembali ke repository resmi, Anda dapat mengembalikan file sources.list dari backup yang Anda buat sebelumnya dengan perintah berikut:
+                        </p>
+                        <div class="bg-gray-900 text-white p-4 rounded-lg font-mono text-sm">
+                            <div class="terminal-effect">sudo cp /etc/apt/sources.list.backup /etc/apt/sources.list</div>
+                            <div class="terminal-effect">sudo apt update</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-6">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-10 mb-10">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <div class="bg-gradient-to-br from-brand-600 to-brand-500 rounded-full p-1.5 mr-3 shadow-md">
+                            <img src="logo.png" alt="Karyasija Logo" class="h-8 w-8 rounded-full">
+                        </div>
+                        <div>
+                            <div class="text-xl font-bold">Repository Mirror</div>
+                            <div class="text-sm text-gray-400">by Karyasija</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 mb-5 leading-relaxed">
+                        Mirror repository Linux yang tersedia untuk jaringan lokal dan publik. Dibangun untuk mempercepat proses deployment dan update sistem.
+                    </p>
+                   
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Tautan Cepat</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#home" class="hover:text-white transition-colors flex items-center">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-brand-500"></i> Home
+                        </a></li>
+                        <li><a href="#repositories" class="hover:text-white transition-colors flex items-center">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-brand-500"></i> Repositories
+                        </a></li>
+                        <li><a href="#setup" class="hover:text-white transition-colors flex items-center">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-brand-500"></i> Setup Guide
+                        </a></li>
+                        <li><a href="#faq" class="hover:text-white transition-colors flex items-center">
+                            <i class="fas fa-chevron-right text-xs mr-2 text-brand-500"></i> FAQ
+                        </a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Informasi Kontak</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-brand-500 mr-3 w-5 text-center"></i>
+                            <span>admin@karyasija.id</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-gray-800 flex flex-wrap justify-between items-center">
+                <div class="text-gray-400 mb-4 md:mb-0 flex items-center">
+                    <i class="fas fa-heart text-brand-500 mr-2 animate-pulse-slow"></i>
+                    &copy; Karyasija. Hak cipta dilindungi.
+                </div>
+                <div class="text-sm text-gray-400 flex items-center">
+                    <span class="mr-3">Made with</span>
+                    <i class="fas fa-coffee text-amber-600 mr-2"></i>
+                    <span class="mr-3">and</span>
+                    <i class="fas fa-code text-brand-500"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-500">
+        <div class="bg-brand-600 text-white px-6 py-3 rounded-lg shadow-xl flex items-center">
+            <i class="fas fa-check-circle mr-3"></i>
+            <span id="toast-message">Berhasil disalin!</span>
+        </div>
+    </div>
+
+    <!-- Go to Top Button -->
+    <button id="go-to-top" class="fixed bottom-6 right-6 h-12 w-12 bg-brand-600 text-white rounded-full shadow-lg flex items-center justify-center transform transition-transform opacity-0 scale-90 hover:bg-brand-700">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // FAQ toggles
+        const faqButtons = document.querySelectorAll('.faq-button');
+        
+        faqButtons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                const answer = button.nextElementSibling;
+                const icon = button.querySelector('i.fa-chevron-down');
+                
+                answer.classList.toggle('hidden');
+                
+                if (answer.classList.contains('hidden')) {
+                    icon.style.transform = 'rotate(0deg)';
+                } else {
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
+            
+            // Open first FAQ by default
+            if (index === 0) {
+                setTimeout(() => {
+                    button.click();
+                }, 500);
+            }
+        });
+
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            
+            toastMessage.textContent = message;
+            
+            // Show the toast
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Copy URL and configs
+        const copyUbuntuUrlBtn = document.getElementById('copy-ubuntu-url-btn');
+        const copyDebianUrlBtn = document.getElementById('copy-debian-url-btn');
+        const copyUbuntuConfigBtn = document.getElementById('copy-ubuntu-config-btn');
+        const copyDebianConfigBtn = document.getElementById('copy-debian-config-btn');
+        
+        copyUbuntuUrlBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText('http://repo.stembayo.sch.id/ubuntu/');
+            showToast('URL Ubuntu repository berhasil disalin!');
+        });
+        
+        copyDebianUrlBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText('http://repo.stembayo.sch.id/debian/');
+            showToast('URL Debian repository berhasil disalin!');
+        });
+        
+        const ubuntuConfig = `deb http://repo.stembayo.sch.id/ubuntu/ noble main restricted universe multiverse
+deb http://repo.stembayo.sch.id/ubuntu/ noble-updates main restricted universe multiverse
+deb http://repo.stembayo.sch.id/ubuntu/ noble-security main restricted universe multiverse`;
+        
+        copyUbuntuConfigBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(ubuntuConfig);
+            showToast('Konfigurasi Ubuntu berhasil disalin!');
+        });
+        
+        const debianConfig = `deb http://repo.stembayo.sch.id/debian/ bookworm main contrib non-free non-free-firmware
+deb http://repo.stembayo.sch.id/debian/ bookworm-updates main contrib non-free non-free-firmware
+deb http://repo.stembayo.sch.id/debian-security/ bookworm-security main contrib non-free non-free-firmware`;
+        
+        copyDebianConfigBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(debianConfig);
+            showToast('Konfigurasi Debian berhasil disalin!');
+        });
+
+        // Progress bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+            
+            // Show/hide go to top button
+            const goToTopButton = document.getElementById('go-to-top');
+            if (winScroll > 300) {
+                goToTopButton.classList.remove('opacity-0', 'scale-90');
+                goToTopButton.classList.add('opacity-100', 'scale-100');
+            } else {
+                goToTopButton.classList.remove('opacity-100', 'scale-100');
+                goToTopButton.classList.add('opacity-0', 'scale-90');
+            }
+        });
+
+        // Go to top button functionality
+        document.getElementById('go-to-top').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+        function updateTimers() {
+            // Simulasi waktu update terakhir
+            const hours = Math.floor(Math.random() * 3) + 1; // 1-3 jam
+            const minutes = Math.floor(Math.random() * 60);
+            
+            document.getElementById('time-since-update').textContent = hours + ":" + (minutes < 10 ? "0" + minutes : minutes);
+            
+            // Simulasi countdown untuk update berikutnya
+            const nextHours = Math.floor(Math.random() * 2) + 4; // 4-5 jam
+            const nextMinutes = Math.floor(Math.random() * 60);
+            
+            document.getElementById('next-update-in').textContent = nextHours + ":" + (nextMinutes < 10 ? "0" + nextMinutes : nextMinutes);
+        }
+        
+        // Jalankan fungsi updateTimers saat halaman dimuat
+        updateTimers();
+        
+        // Simulasi terminal typing effect
+        function setupTerminalTyping() {
+            const terminalElements = document.querySelectorAll('.terminal-effect');
+            
+            terminalElements.forEach(element => {
+                const originalText = element.textContent.trim();
+                element.textContent = '';
+                
+                let i = 0;
+                const typeSpeed = 30; 
+                
+                function typeWriter() {
+                    if (i < originalText.length) {
+                        element.textContent += originalText.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, typeSpeed);
+                    }
+                }
+                
+                setTimeout(() => {
+                    typeWriter();
+                }, Math.random() * 1000);
+            });
+        }
+        
+    </script>
+</body>
+</html>

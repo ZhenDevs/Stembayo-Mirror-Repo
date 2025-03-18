@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | Stembayo Repository Mirror</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s infinite',
+                        typing: 'typing 3.5s steps(40, end)',
+                        blink: 'blink 1s step-end infinite'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link rel="icon" href="logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="logo.png">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        code, pre {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(to right, #15803d, #22c55e);
+        }
+        
+        .cursor::after {
+            content: "|";
+            animation: blink 1s step-end infinite;
+        }
+        
+        @keyframes blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #16a34a;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #15803d;
+        }
+        
+        .terminal-line {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 2s steps(40, end);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <div class="bg-gradient-to-br from-brand-600 to-brand-500 rounded-full p-1.5 mr-3 shadow-md">
+                        <img src="logo.png" alt="Logo" class="h-7 w-7 rounded-full">
+                    </div>
+                    <span class="text-lg font-semibold">Repository <span class="text-brand-600 font-bold">Mirror</span></span>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="text-gray-600 hover:text-brand-600 font-medium relative group">
+                        Home
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="index.html#repositories" class="text-gray-600 hover:text-brand-600 font-medium relative group">
+                        Repositories
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="index.html#setup" class="text-gray-600 hover:text-brand-600 font-medium relative group">
+                        Setup
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="index.html#faq" class="text-gray-600 hover:text-brand-600 font-medium relative group">
+                        FAQ
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 404 Content -->
+    <div class="flex-grow flex items-center justify-center py-16 px-4">
+        <div class="max-w-2xl w-full text-center">
+            <div class="flex justify-center mb-8">
+                <div class="h-28 w-28 bg-red-100 rounded-full flex items-center justify-center text-red-500 text-5xl animate-pulse-slow">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+            </div>
+            
+            <h1 class="text-5xl font-bold text-gray-800 mb-4">404</h1>
+            <h2 class="text-2xl font-bold text-gray-700 mb-6">Halaman Tidak Ditemukan</h2>
+            
+            <div class="bg-gray-900 text-white p-6 rounded-lg font-mono text-sm mb-8 max-w-lg mx-auto text-left overflow-hidden">
+                <div class="flex items-center mb-3 text-gray-500 text-xs">
+                    <div class="flex items-center">
+                        <i class="fas fa-terminal mr-2"></i> Terminal
+                    </div>
+                    <div class="ml-auto flex space-x-1">
+                        <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                        <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                        <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                    </div>
+                </div>
+                <div class="text-red-400 terminal-line">E: Could not locate page.</div>
+                <div class="text-gray-400 mt-1 terminal-line">E: Unable to locate package <span class="text-yellow-300">requested-page</span></div>
+                <div class="text-gray-400 mt-1 terminal-line">E: Couldn't find any package by glob <span class="text-yellow-300">requested-page</span></div>
+                <div class="text-gray-400 mt-1 terminal-line">E: No packages found</div>
+                <div class="mt-4 text-brand-400 cursor">
+                    $ sudo apt install homepage
+                </div>
+            </div>
+            
+            <p class="text-gray-600 mb-8 max-w-md mx-auto">
+                Maaf, halaman yang Anda cari tidak ditemukan atau telah dipindahkan. 
+                Silakan kembali ke halaman utama repository mirror.
+            </p>
+            
+            <a href="index.html" class="bg-brand-600 text-white px-8 py-3 rounded-lg font-medium shadow-md hover:bg-brand-700 transition inline-flex items-center group">
+                <i class="fas fa-home mr-2"></i> Kembali ke Home
+                <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-6">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <div class="flex items-center justify-center mb-4">
+                <div class="bg-gradient-to-br from-brand-600 to-brand-500 rounded-full p-1 mr-2 shadow-md">
+                    <img src="logo.png" alt="Logo" class="h-6 w-6 rounded-full">
+                </div>
+                <div>
+                    <div class="text-lg font-bold">Repository Mirror</div>
+                </div>
+            </div>
+            
+            <div class="text-gray-400 text-sm flex items-center justify-center">
+                <i class="fas fa-heart text-brand-500 mr-2 animate-pulse-slow"></i>
+                &copy; Karyasija. Hak cipta dilindungi.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Update year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Add typing effect to terminal lines with staggered delays
+        document.querySelectorAll('.terminal-line').forEach((line, index) => {
+            line.style.animation = `typing 1s steps(40, end) ${index * 0.5}s forwards`;
+            line.style.width = '0';
+            line.style.display = 'inline-block';
+        });
+        
+        // Add typewriter effect to command line
+        setTimeout(() => {
+            const commandLine = document.querySelector('.cursor');
+            const text = commandLine.textContent.trim();
+            commandLine.innerHTML = '';
+            
+            let i = 0;
+            function typeWriter() {
+                if (i < text.length) {
+                    commandLine.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 50);
+                } else {
+                    commandLine.classList.add('cursor');
+                }
+            }
+            
+            setTimeout(typeWriter, 2000);
+        }, 100);
+    </script>
+</body>
+</html>
